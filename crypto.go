@@ -1,6 +1,4 @@
-/*
- *
- */
+// Package gotools implements a simple golang tools package.
 package gotools
 
 import (
