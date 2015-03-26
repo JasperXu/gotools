@@ -11,14 +11,14 @@ import (
 	"strings"
 )
 
-func addAuthorization(uf UploadFile, r *http.Request) {
+func addAuthorization(o OSS, r *http.Request) {
 	Method := r.Method
 	ContentMD5 := r.Header.Get("Content-Md5")
 	ContentType := r.Header.Get("Content-Type")
 	Date := r.Header.Get("Date")
 	CanonicalizedOSSHeaders := getCanonicalizedOSSHeaders(r)
-	CanonicalizedResource := "/" + uf.BucketName + r.URL.Path
-	Authorization := "OSS " + uf.AccessKeyId + ":" + computeSignature(uf.AccessKeyId, uf.AccessKeySecret, Method, ContentMD5, ContentType, Date, CanonicalizedOSSHeaders, CanonicalizedResource)
+	CanonicalizedResource := "/" + o.BucketName + r.URL.Path
+	Authorization := "OSS " + o.AccessKeyId + ":" + computeSignature(o.AccessKeyId, o.AccessKeySecret, Method, ContentMD5, ContentType, Date, CanonicalizedOSSHeaders, CanonicalizedResource)
 	r.Header.Add("Authorization", Authorization)
 }
 
