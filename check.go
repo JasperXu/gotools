@@ -97,6 +97,19 @@ func init() {
 	AddRule("string", item)
 
 	item = Rule{}
+	item.Operator = "IsBool"
+	item.ParamNums = 0
+	item.Func = func(value interface{}, params ...interface{}) bool {
+		strValue := value.(string)
+		strValue = strings.ToLower(strValue)
+		if strValue == "true" || strValue == "false" {
+			return true
+		}
+		return false
+	}
+	AddRule("string", item)
+
+	item = Rule{}
 	item.Operator = "len>="
 	item.ParamNums = 1
 	item.Func = func(value interface{}, params ...interface{}) bool {
@@ -420,6 +433,7 @@ func init() {
 	AddRule("time", item)
 }
 
+//把其他int类型尝试转换int64
 func ConvToInt64(i interface{}) (int64, bool) {
 	iValue := reflect.ValueOf(i)
 
@@ -428,6 +442,15 @@ func ConvToInt64(i interface{}) (int64, bool) {
 	}()
 
 	return iValue.Int(), true
+}
+
+//把数据库中的bit类型取出为[]uint8后转化为bool
+func Bit2Bool(value []uint8) bool {
+	if len(value) == 0 || value[len(value)-1] == 0 {
+		return false
+	} else {
+		return true
+	}
 }
 
 //添加验证规则
