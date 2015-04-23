@@ -110,6 +110,28 @@ func init() {
 	AddRule("string", item)
 
 	item = Rule{}
+	item.Operator = "IsSex"
+	item.ParamNums = 0
+	item.Func = func(value interface{}, params ...interface{}) bool {
+		strValue := value.(string)
+		if strValue == "0" || strValue == "1" {
+			return true
+		}
+		return false
+	}
+	AddRule("string", item)
+
+	item = Rule{}
+	item.Operator = "IsFlavors"
+	item.ParamNums = 0
+	item.Func = func(value interface{}, params ...interface{}) bool {
+		strValue := value.(string)
+		m, _ := regexp.MatchString("^(?:,\\w{1,20}?){1,20},$", strValue)
+		return m
+	}
+	AddRule("string", item)
+
+	item = Rule{}
 	item.Operator = "len>="
 	item.ParamNums = 1
 	item.Func = func(value interface{}, params ...interface{}) bool {
