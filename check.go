@@ -137,7 +137,7 @@ func init() {
 	item.Func = func(value interface{}, params ...interface{}) bool {
 		strValue := value.(string)
 		param := params[0].(int)
-		if len(strValue) >= param {
+		if len([]rune(strValue)) >= param {
 			return true
 		}
 		return false
@@ -150,7 +150,7 @@ func init() {
 	item.Func = func(value interface{}, params ...interface{}) bool {
 		strValue := value.(string)
 		param := params[0].(int)
-		if len(strValue) <= param {
+		if len([]rune(strValue)) <= param {
 			return true
 		}
 		return false
@@ -163,7 +163,7 @@ func init() {
 	item.Func = func(value interface{}, params ...interface{}) bool {
 		strValue := value.(string)
 		param := params[0].(int)
-		if len(strValue) > param {
+		if len([]rune(strValue)) > param {
 			return true
 		}
 		return false
@@ -176,7 +176,7 @@ func init() {
 	item.Func = func(value interface{}, params ...interface{}) bool {
 		strValue := value.(string)
 		param := params[0].(int)
-		if len(strValue) < param {
+		if len([]rune(strValue)) < param {
 			return true
 		}
 		return false
@@ -190,7 +190,7 @@ func init() {
 		strValue := value.(string)
 		paramA := params[0].(int)
 		paramB := params[1].(int)
-		if len(strValue) >= paramA && len(strValue) <= paramB {
+		if len([]rune(strValue)) >= paramA && len([]rune(strValue)) <= paramB {
 			return true
 		}
 		return false
